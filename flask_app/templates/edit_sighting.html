@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body class="container m-auto">
+    <div class="flex justify-between">
+        <h1 class="text-2xl">Sasquatch Websighting</h1>
+        <div class="flex flex-col gap-2 items-end">
+            <h2 class="text-2xl">{{user.first_name}} {{user.last_name}}</h2>
+            <a href="/sightings" class="border-2 border-black p-1 w-fit shadow-md">Dashboard</a>
+            <a href="/logout" class="border-2 border-black p-1 w-fit shadow-md">Logout</a>
+        </div>
+    </div>
+    <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h2 class="text-2xl">Report a Sighting</h2>
+        <form action="/edit/sighting/{{sighting.id}}" method="post" class="flex justify-between">
+            <div>
+                <div>
+                    <label for="location">Location:</label>
+                    <input type="text" name="location" value="{{sighting.location}}"
+                        class="mt-2 text-slate-900 bg-white rounded-md px-3 h-10 shadow-md ring-1  ">
+                </div>
+                <div>
+                    <label for="date">Date of Siting:</label>
+                    <input type="date" name="date" value="{{sighting.date}}"
+                        class="mt-2 text-slate-900 bg-white rounded-md px-3 h-10 shadow-md ring-1  ">
+                </div>
+                <button type="submit" class="border-2 border-black p-1 w-fit shadow-md">Update</button>
+            </div>
+            <div>
+                <div>
+                    <label for="what_happened">What Happened:</label>
+                    <textarea name="what_happened" id="what_happened" cols="30" rows="10" value="{{sighting.what_happened}}"
+                        class="mt-2 text-slate-900 bg-white rounded-md px-3 h-10 shadow-md ring-1  ">{{sighting.what_happened}}</textarea>
+                </div>
+                <div>
+                    <label for="amount"># of Sasquatches:</label>
+                    <input name="amount" id="amount" type="number" value="{{sighting.amount}}"
+                     class="mt-2 text-slate-900 bg-white rounded-md px-3 h-10 shadow-md ring-1  ">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>

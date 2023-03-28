@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sightings</title>
+</head>
+
+<body class="container m-auto">
+    <div class="flex justify-between">
+        <h1 class="text-2xl">Sasquatch Websighting</h1>
+        <div class="flex flex-col gap-2 items-end">
+            <h2 class="text-2xl">{{user.first_name}} {{user.last_name}}</h2>
+            <a href="/report/sighting" class="border-2 border-black p-1 w-fit shadow-md">Report a Sighting</a>
+            <a href="/logout" class="border-2 border-black p-1 w-fit shadow-md">Logout</a>
+        </div>
+    </div>
+    <div>
+        <h2 class="text-2xl pb-5">Reported Sightings</h2>
+        <div class="border-2 border-black p-5">
+            {% for sighting in sightings %}
+            <div class="flex justify-evenly border-b-2 pb-5">
+                <div>
+                    <p class="text-xl">Skeptics</p>
+                    <p class="text-xl">{{sighting.number_of_skeptics}}</p>
+                </div>
+                <div>
+                    <p class="text-xl">{{sighting.location}} - {{sighting.date}}</p>
+                    <p class="text-xl">Reported by: {{sighting.reporter_first_name}} {{sighting.reporter_last_name}}</p>
+                </div>
+                <div class="flex justify-between items-center gap-5">
+
+                   {% if sighting.user_id == user.id %}
+                    <a href="/edit/{{sighting.id}}" class="border-2 border-black p-1 w-fit h-fit shadow-md">Edit</a>
+                    <a href="/delete/{{sighting.id}}" class="border-2 border-black p-1 w-fit h-fit shadow-md">Delete</a>
+                    {% else %}
+                    <a href="/view/{{sighting.id}}" class="border-2 border-black p-1 w-fit h-fit shadow-md">View</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

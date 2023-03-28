@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body class="container m-auto">
+    <div class="flex justify-between">
+        <h1 class="text-2xl">Sasquatch Websighting</h1>
+        <div class="flex flex-col gap-2 items-end">
+            <h2 class="text-2xl">{{user.first_name}} {{user.last_name}}</h2>
+            <a href="/sightings" class="border-2 border-black p-1 w-fit shadow-md">Dashboard</a>
+            <a href="/logout" class="border-2 border-black p-1 w-fit shadow-md">Logout</a>
+        </div>
+    </div>
+    <div>
+        <h2 class="text-2xl mb-5">{{sighting.location}} on {{sighting.date}}</h2>
+        <div class="flex justify-between">
+            <div class="flex flex-col gap-5">
+                <div>
+                    <h3>What Happened:</h3>
+                    <p>{{sighting.what_happened}}</p>
+                </div>
+                <p># of Sasquatches: {{sighting.amount}}</p>
+                <p>Reported by: {{sighting.reporter_first_name}} {{sighting.reporter_last_name}}</p>
+            </div>
+            <div class="flex flex-col gap-5">
+                <h3>Skeptics</h3>
+                <ul>
+                    {% for skeptic in skeptics %}
+                    <li>{{skeptic.first_name}} {{skeptic.last_name}}</li>
+                    {% endfor %}
+                </ul>
+                {% if not is_skeptic%}
+                <a href="/skeptic/{{sighting.id}}" class="border-2 border-black p-1 w-fit shadow-md">I'm skeptical</a>
+                {%else%}
+                <a href="/skeptic/remove/{{sighting.id}}" class="border-2 border-black p-1 w-fit shadow-md">Believe It</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
